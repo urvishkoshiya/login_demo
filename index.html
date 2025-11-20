@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="site.css">
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            // Center login box on screen
+            function centerBox() {
+                var winWidth = $(window).width();
+                var winHeight = $(window).height();
+
+                var boxWidth = $("#loginBox").outerWidth();
+                var boxHeight = $("#loginBox").outerHeight();
+
+                $("#loginBox").css({
+                    "top": (winHeight - boxHeight) / 2 + "px",
+                    "left": (winWidth - boxWidth) / 2 + "px"
+                });
+            }
+
+            centerBox();
+            $("#loginBox").fadeIn(500);
+
+            $(window).resize(function () {
+                centerBox();
+            });
+
+            // Login Button Click
+            $("#btnLogin").click(function () {
+
+                $(".error").text(""); // Clear previous errors
+
+                let username = $("#txtUsername").val();
+                let password = $("#txtPassword").val();
+
+                // Validation flags
+                let valid = true;
+
+                // Username validation
+                if (username.length < 8) {
+                    $("#userErr").text("Username must be at least 8 characters.");
+                    valid = false;
+                }
+
+                if (!/[A-Z]/.test(username)) {
+                    $("#userErr").text("Username must contain at least one uppercase letter.");
+                    valid = false;
+                }
+
+                // Password validation
+                if (password.length < 10) {
+                    $("#passErr").text("Password must be at least 10 characters.");
+                    valid = false;
+                }
+
+                // If valid
+                if (valid) {
+                    alert("Login Successful!");
+                }
+
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id="loginBox">
+        <h2 style="text-align:center;">Login</h2>
+
+        <label>Username</label>
+        <input type="text" id="txtUsername" placeholder="Enter username">
+        <div id="userErr" class="error"></div>
+
+        <label>Password</label>
+        <input type="password" id="txtPassword" placeholder="Enter password">
+        <div id="passErr" class="error"></div>
+
+        <button id="btnLogin">Login</button>
+
+    </div>
+
+</body>
+</html>
